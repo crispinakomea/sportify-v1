@@ -51,6 +51,23 @@ public class StatisticPanel extends JPanel {
 		for (int i = 0; i < recentStatistics.length; i++)
 			recentStatistics[i].setAwayStat(data[i]);
 	}
+	
+	public void cleaStatistics() {
+		for (int i = 0; i < recentStatistics.length; i++) {
+			recentStatistics[i].clearHomeStatisticBox();
+			recentStatistics[i].clearAwayStatisticBox();
+		}
+	}
+
+	public void clearHomeStatistics() {
+		for (int i = 0; i < recentStatistics.length; i++)
+			recentStatistics[i].clearHomeStatisticBox();
+	}
+
+	public void clearAwayStatistics() {
+		for (int i = 0; i < recentStatistics.length; i++)
+			recentStatistics[i].clearAwayStatisticBox();
+	}
 
 }
 
@@ -85,5 +102,18 @@ class StatisticBox extends CustomGridBag {
 
 	public void setAwayStat(String awayStat) {
 		this.awayStat.setText(awayStat);
+	}
+
+	public void clearStatisticBox() {
+		homeStat.setText(null);
+		awayStat.setText(null);
+	}
+	
+	public void clearHomeStatisticBox() {
+		homeStat.setText(null);
+	}
+
+	public void clearAwayStatisticBox() {
+		awayStat.setText(null);
 	}
 }

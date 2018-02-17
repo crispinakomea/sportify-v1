@@ -41,25 +41,28 @@ public class TeamSelectPanel extends CustomGridBag {
 			String team;
 			if (e.getStateChange() == 1) {
 				team = (String) e.getItem();
-				setHomeBadge(team);
-				String query = "from Team t where t.name='" + team + "'";
-				Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
+				if (team != "") {
+					setHomeBadge(team);
+					String query = "from Team t where t.name='" + team + "'";
+					Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
 
-				Fixture[] fixtures = new Fixture[4];
-				team = teamObj.getAlias();
-				query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
-						+ "' order by s.id desc";
-				@SuppressWarnings("unchecked")
-				List<Statistic> statistics = (ArrayList<Statistic>) HibernateUtil.executeListQuery(query, 4);
-				for (int i = 0; i < statistics.size(); i++)
-					fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
-							statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
-				fixturePanel.setHomeFixtures(fixtures);
+					Fixture[] fixtures = new Fixture[4];
+					team = teamObj.getAlias();
+					query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
+							+ "' order by s.id desc";
+					@SuppressWarnings("unchecked")
+					List<Statistic> statistics = (ArrayList<Statistic>) HibernateUtil.executeListQuery(query, 4);
+					for (int i = 0; i < statistics.size(); i++)
+						fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
+								statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
+					fixturePanel.setHomeFixtures(fixtures);
 
-				query = "from Standing s where s.name='" + team + "'";
-				Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
-				statisticPanel.setHomeFixtures(standing);
-			}
+					query = "from Standing s where s.name='" + team + "'";
+					Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
+					statisticPanel.setHomeFixtures(standing);
+				}
+			} else
+				statisticPanel.clearHomeStatistics();
 		}
 	};
 
@@ -69,31 +72,34 @@ public class TeamSelectPanel extends CustomGridBag {
 			String team;
 			if (e.getStateChange() == 1) {
 				team = (String) e.getItem();
-				setAwayBadge(team);
-				String query = "from Team t where t.name='" + team + "'";
-				Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
+				if (team != "") {
+					setAwayBadge(team);
+					String query = "from Team t where t.name='" + team + "'";
+					Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
 
-				Fixture[] fixtures = new Fixture[4];
-				team = teamObj.getAlias();
-				query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
-						+ "' order by s.id desc";
-				@SuppressWarnings("unchecked")
-				List<Statistic> statistics = (ArrayList<Statistic>) HibernateUtil.executeListQuery(query, 4);
-				for (int i = 0; i < statistics.size(); i++)
-					fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
-							statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
-				fixturePanel.setAwayFixtures(fixtures);
+					Fixture[] fixtures = new Fixture[4];
+					team = teamObj.getAlias();
+					query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
+							+ "' order by s.id desc";
+					@SuppressWarnings("unchecked")
+					List<Statistic> statistics = (ArrayList<Statistic>) HibernateUtil.executeListQuery(query, 4);
+					for (int i = 0; i < statistics.size(); i++)
+						fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
+								statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
+					fixturePanel.setAwayFixtures(fixtures);
 
-				query = "from Standing s where s.name='" + team + "'";
-				Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
-				statisticPanel.setAwayFixtures(standing);
+					query = "from Standing s where s.name='" + team + "'";
+					Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
+					statisticPanel.setAwayFixtures(standing);
+				} else
+					statisticPanel.clearAwayStatistics();
 			}
 		}
 	};
 
 	public TeamSelectPanel() {
-		homeDropdown = new JComboBox<String>(new DefaultComboBoxModel<String>(new String[] { "Select team" }));
-		awayDropdown = new JComboBox<String>(new DefaultComboBoxModel<String>(new String[] { "Select team" }));
+		homeDropdown = new JComboBox<String>(new DefaultComboBoxModel<String>(new String[] { "" }));
+		awayDropdown = new JComboBox<String>(new DefaultComboBoxModel<String>(new String[] { "" }));
 
 		homeDropdown.addItemListener(homeTeamItemListener);
 		awayDropdown.addItemListener(awayTeamItemListener);
@@ -138,7 +144,7 @@ public class TeamSelectPanel extends CustomGridBag {
 		Set<Team> teamSet = leagueObj.getTeams();
 		Team[] teamArray = teamSet.toArray(new Team[teamSet.size()]);
 		String[] list = new String[teamArray.length + 1];
-		list[0] = "Select team";
+		list[0] = "";
 		for (int i = 0; i < teamArray.length; i++)
 			list[i + 1] = teamArray[i].getName();
 		Arrays.sort(list, 1, teamArray.length + 1);

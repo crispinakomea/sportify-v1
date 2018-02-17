@@ -54,3 +54,4 @@
 02-16-2018 18:17 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing table [LEAGUES])
 02-16-2018 21:18 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException)
 02-16-2018 22:11 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing table [STANDINGS])
+02-17-2018 02:31 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment])

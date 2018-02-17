@@ -31,6 +31,7 @@ public class LeagueSelectPanel extends JPanel {
 				rightPanel.getTeamSelectPanel().setTeams(league);
 				rightPanel.getTeamSelectPanel().clearBadges();
 				rightPanel.getFixturePanel().clearFixtures();
+				rightPanel.getStatisticPanel().cleaStatistics();
 			}
 		}
 	};
