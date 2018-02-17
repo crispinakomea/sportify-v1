@@ -115,10 +115,4 @@ public class Standing {
 		GD = gD;
 	}
 
-	@Override
-	public String toString() {
-		return "Standing [id=" + id + ", name=" + name + ", P=" + P + ", W=" + W + ", D=" + D + ", L=" + L + ", GF="
-				+ GF + ", GA=" + GA + ", GD=" + GD + "]";
-	}
-
 }

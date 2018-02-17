@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import com.sportify.database.Standings;
+import com.sportify.database.Statistics;
 import com.sportify.view.BottomPanel;
 import com.sportify.view.LeftPanel;
 import com.sportify.view.RightPanel;
@@ -51,6 +53,8 @@ public class App {
 			public void run() {
 				try {
 					App window = new App();
+					Statistics.getInstance().updateAll();
+					Standings.getInstance().updateAll();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

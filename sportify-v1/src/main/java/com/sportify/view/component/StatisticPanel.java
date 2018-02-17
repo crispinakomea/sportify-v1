@@ -8,16 +8,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.sportify.entity.Standing;
 import com.sportify.utility.CustomGridBag;
 
 @SuppressWarnings("serial")
 public class StatisticPanel extends JPanel {
 
 	private StatisticBox[] recentStatistics;
-	private String[] rows = new String[] { "stat", "win", "draw", "loss", "GF", "GA", "GD" };
+	private String[] rows = new String[] { "Stat", "win", "draw", "loss", "GF", "GA", "GD" };
+	private final int COUNT = 7;
 
 	public StatisticPanel() {
-		recentStatistics = new StatisticBox[7];
+		recentStatistics = new StatisticBox[COUNT];
 		recentStatistics[0] = new StatisticBox("", rows[0], "");
 		for (int i = 1; i < recentStatistics.length; i++)
 			recentStatistics[i] = new StatisticBox("0", rows[i], "0");
@@ -34,23 +36,20 @@ public class StatisticPanel extends JPanel {
 	private void addTo() {
 		for (StatisticBox recentStatistic : recentStatistics)
 			add(recentStatistic);
-		validate();
 	}
 
-	public void setHomeFixtures(String[] statistics) {
-		for (int i = 1; i < recentStatistics.length; i++)
-			recentStatistics[i].setHomeStat(statistics[i]);
-		addTo();
+	public void setHomeFixtures(Standing standing) {
+		String[] data = new String[] { standing.getName(), standing.getW() + "", standing.getD() + "",
+				standing.getL() + "", standing.getGF() + "", standing.getGA() + "", standing.getGD() + "" };
+		for (int i = 0; i < recentStatistics.length; i++)
+			recentStatistics[i].setHomeStat(data[i]);
 	}
 
-	public void setAwayFixtures(String[] statistics) {
-		for (int i = 1; i < recentStatistics.length; i++)
-			recentStatistics[i].setHomeStat(statistics[i]);
-		addTo();
-	}
-
-	public void clearFixtures() {
-		removeAll();
+	public void setAwayFixtures(Standing standing) {
+		String[] data = new String[] { standing.getName(), standing.getW() + "", standing.getD() + "",
+				standing.getL() + "", standing.getGF() + "", standing.getGA() + "", standing.getGD() + "" };
+		for (int i = 0; i < recentStatistics.length; i++)
+			recentStatistics[i].setAwayStat(data[i]);
 	}
 
 }
@@ -81,10 +80,10 @@ class StatisticBox extends CustomGridBag {
 	}
 
 	public void setHomeStat(String homeStat) {
-		this.setHomeStat(homeStat);
+		this.homeStat.setText(homeStat);
 	}
 
 	public void setAwayStat(String awayStat) {
-		this.setAwayStat(awayStat);
+		this.awayStat.setText(awayStat);
 	}
 }

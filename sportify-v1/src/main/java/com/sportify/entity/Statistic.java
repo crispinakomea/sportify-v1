@@ -151,11 +151,4 @@ public class Statistic {
 		Referee = referee;
 	}
 
-	@Override
-	public String toString() {
-		return "Statistic [id=" + id + ", League=" + league + ", Date=" + Date + ", HomeTeam=" + HomeTeam
-				+ ", AwayTeam=" + AwayTeam + ", FTHG=" + FTHG + ", FTAG=" + FTAG + ", FTR=" + FTR + ", HTHG=" + HTHG
-				+ ", HTAG=" + HTAG + ", HTR=" + HTR + ", Referee=" + Referee + "]";
-	}
-
 }

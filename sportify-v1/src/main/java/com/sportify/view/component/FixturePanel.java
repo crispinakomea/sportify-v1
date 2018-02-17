@@ -24,9 +24,10 @@ import com.sportify.utility.CustomGridBag;
 public class FixturePanel extends JPanel {
 
 	private FixtureBox[] recentFixtures;
+	private final int COUNT = 8;
 
 	public FixturePanel() {
-		recentFixtures = new FixtureBox[8];
+		recentFixtures = new FixtureBox[COUNT];
 		for (int i = 0; i < recentFixtures.length; i++)
 			recentFixtures[i] = new FixtureBox();
 
@@ -48,26 +49,23 @@ public class FixturePanel extends JPanel {
 		validate();
 	}
 
-	public void setHomeFixtures(Fixture[] fixtures, String base) {
-		removeAll();
-		recentFixtures[0] = new FixtureBox(fixtures[0], base);
-		for (int i = 1; i < recentFixtures.length / 2; i++) {
-			recentFixtures[i] = new FixtureBox(fixtures[i]);
+	public void setHomeFixtures(Fixture[] fixtures) {
+		recentFixtures[0].setFixtureBox(fixtures[0], 48);
+		for (int i = 1; i < COUNT / 2; i++) {
+			recentFixtures[i].setFixtureBox(fixtures[i], 30);
 		}
-		addTo();
 	}
 
-	public void setAwayFixtures(Fixture[] fixtures, String base) {
-		removeAll();
-		recentFixtures[recentFixtures.length / 2] = new FixtureBox(fixtures[0], base);
-		for (int i = 1; i < recentFixtures.length / 2; i++) {
-			recentFixtures[i + (recentFixtures.length / 2)] = new FixtureBox(fixtures[i]);
+	public void setAwayFixtures(Fixture[] fixtures) {
+		recentFixtures[COUNT / 2].setFixtureBox(fixtures[0], 48);
+		for (int i = 1; i < COUNT / 2; i++) {
+			recentFixtures[i + (COUNT / 2)].setFixtureBox(fixtures[i], 30);
 		}
-		addTo();
 	}
 
 	public void clearFixtures() {
-		removeAll();
+		for (int i = 0; i < COUNT; i++)
+			recentFixtures[i].clearFixtureBox();
 	}
 
 }
@@ -80,58 +78,12 @@ class FixtureBox extends CustomGridBag {
 	public FixtureBox() {
 		homeLogo = new JLabel("", SwingConstants.CENTER);
 		score = new JLabel("     -     ", SwingConstants.CENTER);
-		score.setFont(new Font("Calibri", Font.BOLD, 15));
-		score.setBorder(new EmptyBorder(2, 4, 2, 4));
+		score.setFont(new Font("Calibri", Font.BOLD, 14));
+		score.setBorder(new EmptyBorder(2, 2, 2, 2));
 		score.setOpaque(true);
 		score.setBackground(Color.darkGray);
 		score.setForeground(Color.white);
 		awayLogo = new JLabel("", SwingConstants.CENTER);
-
-		addTo();
-	}
-
-	public FixtureBox(Fixture fixture) {
-		String image;
-		homeLogo = new JLabel("", SwingConstants.CENTER);
-		image = "src/main/resources/img/badge/" + fixture.getHomeTeam() + ".png";
-		homeLogo.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		score = new JLabel(" " + fixture.getFTHG() + " - " + fixture.getFTAG() + " ", SwingConstants.CENTER);
-		score.setFont(new Font("Calibri", Font.BOLD, 15));
-		score.setBorder(new EmptyBorder(2, 4, 2, 4));
-		score.setOpaque(true);
-		score.setBackground(Color.darkGray);
-		score.setForeground(Color.white);
-		awayLogo = new JLabel("", SwingConstants.CENTER);
-		image = "src/main/resources/img/badge/" + fixture.getAwayTeam() + ".png";
-		awayLogo.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-
-		addTo();
-	}
-
-	public FixtureBox(Fixture fixture, String base) {
-		String image;
-		homeLogo = new JLabel("", SwingConstants.CENTER);
-		image = "src/main/resources/img/badge/" + fixture.getHomeTeam() + ".png";
-		if (base.equals(fixture.getHomeTeam()))
-			homeLogo.setIcon(
-					new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-		else
-			homeLogo.setIcon(
-					new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		score = new JLabel(" " + fixture.getFTHG() + " - " + fixture.getFTAG() + " ", SwingConstants.CENTER);
-		score.setFont(new Font("Calibri", Font.BOLD, 15));
-		score.setBorder(new EmptyBorder(2, 4, 2, 4));
-		score.setOpaque(true);
-		score.setBackground(Color.darkGray);
-		score.setForeground(Color.white);
-		awayLogo = new JLabel("", SwingConstants.CENTER);
-		image = "src/main/resources/img/badge/" + fixture.getAwayTeam() + ".png";
-		if (base.equals(fixture.getAwayTeam()))
-			awayLogo.setIcon(
-					new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-		else
-			awayLogo.setIcon(
-					new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
 
 		addTo();
 	}
@@ -141,4 +93,21 @@ class FixtureBox extends CustomGridBag {
 		addComponent(this, score, 1, 0, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL);
 		addComponent(this, awayLogo, 2, 0, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL);
 	}
+
+	public void setFixtureBox(Fixture fixture, int size) {
+		String image = "src/main/resources/img/badge/" + fixture.getHomeTeam() + ".png";
+		homeLogo.setIcon(
+				new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
+		score.setText(" " + fixture.getFTHG() + " - " + fixture.getFTAG() + " ");
+		image = "src/main/resources/img/badge/" + fixture.getAwayTeam() + ".png";
+		awayLogo.setIcon(
+				new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH)));
+	}
+
+	public void clearFixtureBox() {
+		homeLogo.setIcon(null);
+		score.setText("     -     ");
+		awayLogo.setIcon(null);
+	}
+
 }

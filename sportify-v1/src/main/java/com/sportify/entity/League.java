@@ -105,10 +105,4 @@ public class League {
 		this.statistics = statistics;
 	}
 
-	@Override
-	public String toString() {
-		return "League [id=" + id + ", division=" + division + ", name=" + name + ", season_start=" + season_start
-				+ ", season_end=" + season_end + ", teams=" + teams + ", statistics=" + statistics + "]";
-	}
-
 }

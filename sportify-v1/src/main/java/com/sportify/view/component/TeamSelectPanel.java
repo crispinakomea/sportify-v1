@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.sportify.entity.League;
+import com.sportify.entity.Standing;
 import com.sportify.entity.Statistic;
 import com.sportify.entity.Team;
 import com.sportify.model.Fixture;
@@ -43,6 +44,7 @@ public class TeamSelectPanel extends CustomGridBag {
 				setHomeBadge(team);
 				String query = "from Team t where t.name='" + team + "'";
 				Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
+
 				Fixture[] fixtures = new Fixture[4];
 				team = teamObj.getAlias();
 				query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
@@ -52,7 +54,11 @@ public class TeamSelectPanel extends CustomGridBag {
 				for (int i = 0; i < statistics.size(); i++)
 					fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
 							statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
-				fixturePanel.setHomeFixtures(fixtures, team);
+				fixturePanel.setHomeFixtures(fixtures);
+
+				query = "from Standing s where s.name='" + team + "'";
+				Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
+				statisticPanel.setHomeFixtures(standing);
 			}
 		}
 	};
@@ -66,6 +72,7 @@ public class TeamSelectPanel extends CustomGridBag {
 				setAwayBadge(team);
 				String query = "from Team t where t.name='" + team + "'";
 				Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
+
 				Fixture[] fixtures = new Fixture[4];
 				team = teamObj.getAlias();
 				query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
@@ -75,7 +82,11 @@ public class TeamSelectPanel extends CustomGridBag {
 				for (int i = 0; i < statistics.size(); i++)
 					fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
 							statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
-				fixturePanel.setAwayFixtures(fixtures, team);
+				fixturePanel.setAwayFixtures(fixtures);
+
+				query = "from Standing s where s.name='" + team + "'";
+				Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
+				statisticPanel.setAwayFixtures(standing);
 			}
 		}
 	};

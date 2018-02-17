@@ -78,10 +78,4 @@ public class Team {
 		this.stadium = stadium;
 	}
 
-	@Override
-	public String toString() {
-		return "Team [id=" + id + ", league=" + league + ", name=" + name + ", alias=" + alias + ", stadium=" + stadium
-				+ "]";
-	}
-
 }
