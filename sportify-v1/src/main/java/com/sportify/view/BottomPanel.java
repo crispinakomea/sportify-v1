@@ -44,7 +44,7 @@ public class BottomPanel extends JPanel {
 		updateButton.setBounds(15, 7, 74, 26);
 		updateButton.addActionListener(updateActionListener);
 
-		updateLabel = new JLabel("Done:");
+		updateLabel = new JLabel("Done");
 		updateLabel.setBounds(675, 5, 50, 30);
 
 		progressBar = new JProgressBar(0);
@@ -92,7 +92,7 @@ public class BottomPanel extends JPanel {
 
 		public void done() {
 			updateLabel.setVisible(true);
-			updateLabel.setText("Done:");
+			updateLabel.setText("Done");
 			progressBar.setVisible(false);
 			Toolkit.getDefaultToolkit().beep();
 		}

@@ -52,14 +52,15 @@ public class Statistics {
 		String url = "http://www.football-data.co.uk/mmz4281/1718/" + division + ".csv";
 		String file = "src/main/resources/tmp/" + division + ".csv";
 		HttpUtil.downloadFile(url, file);
-		removeIncompleteStatistics();
 		Statistic statistic = null;
 		try (CSVReader reader = new CSVReader(new FileReader(file))) {
 			String[] nextLine;
 			reader.readNext();
 			while ((nextLine = reader.readNext()) != null) {
-				statistic = makeStatistic(nextLine, ((League) league));
-				HibernateUtil.saveObject(statistic);
+				if(!nextLine[4].equals("") || !nextLine[5].equals("") || !nextLine[6].equals("")) {
+					statistic = makeStatistic(nextLine, ((League) league));
+					HibernateUtil.saveObject(statistic);
+				}
 			}
 		}
 		FileUtils.forceDelete(new File(file));
@@ -81,7 +82,4 @@ public class Statistics {
 		return statistic;
 	}
 
-	private void removeIncompleteStatistics() {
-
-	}
 }

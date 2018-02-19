@@ -37,10 +37,8 @@ public class Standings {
 		System.out.println("Standings deleted.");
 		List<League> leagues = (ArrayList<League>) HibernateUtil.executeListQuery("from League");
 		for (League league : leagues) {
-			for (Team team : league.getTeams()) {
+			for (Team team : league.getTeams())
 				update(team);
-				System.out.println(team.getAlias() + " is updating.");
-			}
 		}
 	}
 
