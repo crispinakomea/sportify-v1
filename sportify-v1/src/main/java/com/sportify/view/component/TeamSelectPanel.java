@@ -34,7 +34,7 @@ public class TeamSelectPanel extends CustomGridBag {
 
 	private FixturePanel fixturePanel;
 	private StatisticPanel statisticPanel;
-	
+
 	private ItemListener homeTeamItemListener = new ItemListener() {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
@@ -170,5 +170,5 @@ public class TeamSelectPanel extends CustomGridBag {
 		homeLogo.setIcon(null);
 		awayLogo.setIcon(null);
 	}
-	
+
 }

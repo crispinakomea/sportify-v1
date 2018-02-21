@@ -18,6 +18,7 @@ public class App {
 
 	private JFrame frame;
 
+
 	private final LeftPanel leftPanel;
 	private final RightPanel rightPanel;
 	private final BottomPanel bottomPanel;
@@ -59,6 +60,7 @@ public class App {
 		frame.getContentPane().add(leftPanel, BorderLayout.WEST);
 		frame.getContentPane().add(rightPanel, BorderLayout.CENTER);
 		frame.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+
 	}
 
 }

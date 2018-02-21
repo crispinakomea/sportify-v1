@@ -60,6 +60,7 @@ public class BottomPanel extends JPanel {
 		Object[] options = { "Update", "Cancel" };
 		return JOptionPane.showOptionDialog(new JFrame(), "Please make sure you have an internet connection.", "Update",
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
 	}
 
 }

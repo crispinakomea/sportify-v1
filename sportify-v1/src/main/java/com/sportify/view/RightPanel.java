@@ -35,7 +35,7 @@ public class RightPanel extends JPanel {
 		initialize();
 		addTo();
 	}
-
+	
 	private void initialzeRightPanel() {
 		rightPanel = new JPanel();
 		rightPanel.setPreferredSize(new Dimension(210, getPreferredSize().height));
@@ -44,7 +44,7 @@ public class RightPanel extends JPanel {
 		fixturePanel = new FixturePanel();
 		rightPanel.add(fixturePanel, BorderLayout.CENTER);
 	}
-	
+
 	private void initialzeCenterPanel() {
 		centerPanel = new JPanel();
 		centerPanel.setPreferredSize(new Dimension(400, getPreferredSize().height));
@@ -84,5 +84,5 @@ public class RightPanel extends JPanel {
 	public JTextArea getTextArea() {
 		return textArea;
 	}
-	
+
 }

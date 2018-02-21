@@ -46,7 +46,7 @@ public class Statistics {
 			String[] nextLine;
 			reader.readNext();
 			while ((nextLine = reader.readNext()) != null) {
-				if (!nextLine[4].equals("") || !nextLine[5].equals("") || !nextLine[6].equals("")) {
+				if(!nextLine[4].equals("") || !nextLine[5].equals("") || !nextLine[6].equals("")) {
 					statistic = makeStatistic(nextLine, ((League) league));
 					HibernateUtil.saveObject(statistic);
 				}
