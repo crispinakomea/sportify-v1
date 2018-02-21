@@ -1,0 +1,6 @@
+02-20-2018 23:01 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment])
+02-20-2018 23:03 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment])
+02-20-2018 23:12 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment])
+02-20-2018 23:21 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment])
+02-20-2018 23:50 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment])
+02-21-2018 04:07 [AWT-EventQueue-0] ERROR HibernateUtil.java (23) - Initial SessionFactory creation failed. (java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException)
