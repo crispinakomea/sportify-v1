@@ -3,6 +3,8 @@ package com.sportify.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -27,6 +29,13 @@ public class BottomPanel extends JPanel {
 				updateDialogPanel = new UpdateDialogPanel();
 				try {
 					dataUpdateTask = new DataUpdateTask<Object>(updateDialogPanel, updateDialogPanel.getBottomlabel());
+					dataUpdateTask.addPropertyChangeListener(new PropertyChangeListener() {
+						public void propertyChange(PropertyChangeEvent evt) {
+							if ("progress".equals(evt.getPropertyName())) {
+								updateDialogPanel.getProgressbar().setValue((Integer) evt.getNewValue());
+							}
+						}
+					});
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

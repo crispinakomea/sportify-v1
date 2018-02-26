@@ -17,7 +17,6 @@ public class UpdateDialogPanel extends JDialog {
 	public UpdateDialogPanel() {
 		topLabel = new JLabel("Update in progress...");
 		progressbar = new JProgressBar();
-		progressbar.setIndeterminate(true);
 		bottomLabel = new JLabel();
 
 		topLabel.setBounds(43, 20, 300, 20);

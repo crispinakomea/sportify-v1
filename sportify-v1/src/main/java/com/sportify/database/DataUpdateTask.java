@@ -39,11 +39,11 @@ public class DataUpdateTask<V> extends SwingWorker<List<Integer>, Integer> {
 		for (League league : leagues) {
 			Statistics.getInstance().update(league);
 			publish(progress++);
-			setProgress(progress / toBeUpdated * 100);
+			setProgress((int) (progress * 1.0 / toBeUpdated * 100));
 			for (Team team : league.getTeams()) {
 				Standings.getInstance().update(team);
 				publish(progress++);
-				setProgress(progress / toBeUpdated * 100);
+				setProgress((int) (progress * 1.0 / toBeUpdated * 100));
 			}
 		}
 		return null;
@@ -57,7 +57,6 @@ public class DataUpdateTask<V> extends SwingWorker<List<Integer>, Integer> {
 
 	@Override
 	public void done() {
-		updateLabel.setText("Update completed.");
 		updateDialogPanel.setVisible(false);
 		updateDialogPanel.dispose();
 		Toolkit.getDefaultToolkit().beep();
