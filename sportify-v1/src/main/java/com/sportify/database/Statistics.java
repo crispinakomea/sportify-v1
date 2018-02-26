@@ -62,7 +62,7 @@ public class Statistics {
 		statistic.setHomeTeam(nextLine[2]);
 		statistic.setAwayTeam(nextLine[3]);
 		statistic.setFTHG(Integer.parseInt(nextLine[4]));
-		statistic.setHTAG(Integer.parseInt(nextLine[5]));
+		statistic.setFTAG(Integer.parseInt(nextLine[5]));
 		statistic.setFTR(nextLine[6].charAt(0));
 		statistic.setHTHG(Integer.parseInt(nextLine[7]));
 		statistic.setHTAG(Integer.parseInt(nextLine[8]));

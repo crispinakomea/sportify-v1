@@ -22,6 +22,7 @@ import com.sportify.entity.Standing;
 import com.sportify.entity.Statistic;
 import com.sportify.entity.Team;
 import com.sportify.model.Fixture;
+import com.sportify.utility.BadgeUtil;
 import com.sportify.utility.CustomGridBag;
 import com.sportify.utility.HibernateUtil;
 
@@ -61,8 +62,10 @@ public class TeamSelectPanel extends CustomGridBag {
 					Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
 					statisticPanel.setHomeFixtures(standing);
 				}
-			} else
+			} else {
 				statisticPanel.clearHomeStatistics();
+				fixturePanel.clearHomeFixtures();
+			}
 		}
 	};
 
@@ -91,8 +94,10 @@ public class TeamSelectPanel extends CustomGridBag {
 					query = "from Standing s where s.name='" + team + "'";
 					Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
 					statisticPanel.setAwayFixtures(standing);
-				} else
+				} else {
 					statisticPanel.clearAwayStatistics();
+					fixturePanel.clearAwayFixtures();
+				}
 			}
 		}
 	};
@@ -155,15 +160,15 @@ public class TeamSelectPanel extends CustomGridBag {
 	public void setHomeBadge(String team) {
 		String query = "from Team t where t.name='" + team + "'";
 		Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
-		homeBadge = new ImageIcon("src/main/resources/img/badge/" + teamObj.getAlias() + ".png");
-		homeLogo.setIcon(homeBadge);
+		String path = "src/main/resources/img/badge/" + teamObj.getAlias() + ".png";
+		homeLogo.setIcon(BadgeUtil.getBadge(path, 70));
 	}
 
 	public void setAwayBadge(String team) {
 		String query = "from Team t where t.name='" + team + "'";
 		Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
-		awayBadge = new ImageIcon("src/main/resources/img/badge/" + teamObj.getAlias() + ".png");
-		awayLogo.setIcon(awayBadge);
+		String path = "src/main/resources/img/badge/" + teamObj.getAlias() + ".png";
+		awayLogo.setIcon(BadgeUtil.getBadge(path, 70));
 	}
 
 	public void clearBadges() {

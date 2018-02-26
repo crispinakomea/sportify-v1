@@ -18,24 +18,10 @@ public class App {
 
 	private JFrame frame;
 
+	private LeftPanel leftPanel;
+	private RightPanel rightPanel;
+	private BottomPanel bottomPanel;
 
-	private final LeftPanel leftPanel;
-	private final RightPanel rightPanel;
-	private final BottomPanel bottomPanel;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					App window = new App();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	public App() {
 		leftPanel = new LeftPanel();
 		rightPanel = new RightPanel();
@@ -60,7 +46,19 @@ public class App {
 		frame.getContentPane().add(leftPanel, BorderLayout.WEST);
 		frame.getContentPane().add(rightPanel, BorderLayout.CENTER);
 		frame.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+	}
 
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					App window = new App();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

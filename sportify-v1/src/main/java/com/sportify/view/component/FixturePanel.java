@@ -62,6 +62,16 @@ public class FixturePanel extends JPanel {
 		}
 	}
 
+	public void clearHomeFixtures() {
+		for (int i = 0; i < COUNT / 2; i++)
+			recentFixtures[i].clearFixtureBox();
+	}
+
+	public void clearAwayFixtures() {
+		for (int i = 0; i < COUNT / 2; i++)
+			recentFixtures[i + (COUNT / 2)].clearFixtureBox();
+	}
+	
 	public void clearFixtures() {
 		for (int i = 0; i < COUNT; i++)
 			recentFixtures[i].clearFixtureBox();

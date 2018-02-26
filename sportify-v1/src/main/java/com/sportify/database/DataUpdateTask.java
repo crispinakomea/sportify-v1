@@ -12,13 +12,17 @@ import javax.swing.SwingWorker;
 import com.sportify.entity.League;
 import com.sportify.entity.Team;
 import com.sportify.utility.HibernateUtil;
+import com.sportify.view.component.UpdateDialogPanel;
 
 public class DataUpdateTask<V> extends SwingWorker<List<Integer>, Integer> {
 
 	private int toBeUpdated;
+	private UpdateDialogPanel updateDialogPanel;
 	private JLabel updateLabel;
 
-	public DataUpdateTask(JLabel updateLabel) throws MalformedURLException, IOException {
+	public DataUpdateTask(UpdateDialogPanel updateDialogPanel, JLabel updateLabel)
+			throws MalformedURLException, IOException {
+		this.updateDialogPanel = updateDialogPanel;
 		this.updateLabel = updateLabel;
 	}
 
@@ -53,7 +57,9 @@ public class DataUpdateTask<V> extends SwingWorker<List<Integer>, Integer> {
 
 	@Override
 	public void done() {
-		updateLabel.setText("Upate completed.");
+		updateLabel.setText("Update completed.");
+		updateDialogPanel.setVisible(false);
+		updateDialogPanel.dispose();
 		Toolkit.getDefaultToolkit().beep();
 	}
 

@@ -24,6 +24,12 @@ public class BottomPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (returnDialogOption() == 0) {
+				updateDialogPanel = new UpdateDialogPanel();
+				try {
+					dataUpdateTask = new DataUpdateTask<Object>(updateDialogPanel, updateDialogPanel.getBottomlabel());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				dataUpdateTask.execute();
 				updateDialogPanel.setVisible(true);
 			}
@@ -34,14 +40,6 @@ public class BottomPanel extends JPanel {
 		updateButton = new JButton("Update");
 		updateButton.setBounds(15, 7, 74, 26);
 		updateButton.addActionListener(updateActionListener);
-
-		updateDialogPanel = new UpdateDialogPanel();
-
-		try {
-			dataUpdateTask = new DataUpdateTask<Object>(updateDialogPanel.getBottomlabel());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		initializeJPanel();
 		addToJPanel();
