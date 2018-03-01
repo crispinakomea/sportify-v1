@@ -60,10 +60,4 @@ public class Fixture {
 		FTR = fTR;
 	}
 
-	@Override
-	public String toString() {
-		return "Fixture [HomeTeam=" + HomeTeam + ", AwayTeam=" + AwayTeam + ", FTHG=" + FTHG + ", FTAG=" + FTAG
-				+ ", FTR=" + FTR + "]";
-	}
-
 }

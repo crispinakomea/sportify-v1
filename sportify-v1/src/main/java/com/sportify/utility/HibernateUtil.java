@@ -29,11 +29,6 @@ public class HibernateUtil {
 		return sessionFactory;
 	}
 
-	public static void shutdown() {
-		sessionFactory.getCurrentSession().close();
-		sessionFactory.close();
-	}
-
 	public static Object executeSingleResultQuery(String query) {
 		Session session = null;
 		try {
@@ -110,6 +105,11 @@ public class HibernateUtil {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public static void shutdown() {
+		sessionFactory.getCurrentSession().close();
+		sessionFactory.close();
 	}
 
 }

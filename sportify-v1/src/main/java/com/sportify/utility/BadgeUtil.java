@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ public class BadgeUtil {
 		try {
 			image = ImageIO.read(new File(path));
 		} catch (IOException e) {
-			logger.info("Image does not exist. (" + path + ")");
+			logger.info(StringUtils.capitalize(path) + " does not exist. (" + e + ")");
 
 			try {
 				image = ImageIO.read(new File(GENERIC_BADGE));
@@ -31,5 +32,5 @@ public class BadgeUtil {
 		image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
 		return new ImageIcon(image);
 	}
-	
+
 }
