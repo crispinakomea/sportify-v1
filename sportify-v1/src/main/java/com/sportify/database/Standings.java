@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.sportify.entity.Standing;
 import com.sportify.entity.Statistic;
 import com.sportify.entity.Team;
@@ -29,16 +31,28 @@ public class Standings {
 		return singleInstance;
 	}
 
+	/**
+	 * 
+	 * Updates the standing in the database of the team passed as argument.
+	 * 
+	 * @param team
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	public void update(Object team) throws MalformedURLException, IOException {
-		String name = ((Team) team).getAlias();
-		String query = "from Team t where t.name='" + name + "'";
-		query = "from Statistic s where s.HomeTeam='" + name + "' or s.AwayTeam='" + name + "'";
+		String alias = ((Team) team).getAlias();
+		String hql = "from Statistic s where s.HomeTeam= :alias or s.AwayTeam= :alias";
+		Session session = HibernateUtil.openSession();
+		session.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<Statistic> statistics = (ArrayList<Statistic>) HibernateUtil.executeListQuery(query);
+		List<Statistic> statistics = (ArrayList<Statistic>) session.createQuery(hql).setParameter("alias", alias)
+				.list();
+		session.getTransaction().commit();
+		session.close();
 		int plays, wins, draws, losses, GF, GA;
 		plays = wins = draws = losses = GF = GA = 0;
 		for (Statistic statistic : statistics) {
-			if (statistic.getHomeTeam().equals(name)) {
+			if (statistic.getHomeTeam().equals(alias)) {
 				if (statistic.getFTR() == 'H') {
 					wins++;
 				} else if (statistic.getFTR() == 'D') {
@@ -59,7 +73,7 @@ public class Standings {
 			}
 			plays++;
 		}
-		HibernateUtil.saveObject(makeStanding(name, plays, wins, draws, losses, GF, GA, (GF - GA)));
+		HibernateUtil.save(makeStanding(alias, plays, wins, draws, losses, GF, GA, (GF - GA)));
 	}
 
 	private Standing makeStanding(String name, int plays, int wins, int draws, int losses, int gF, int gA, int gD) {

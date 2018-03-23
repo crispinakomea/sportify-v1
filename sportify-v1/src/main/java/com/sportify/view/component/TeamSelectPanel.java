@@ -17,6 +17,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import org.hibernate.Session;
+
 import com.sportify.entity.League;
 import com.sportify.entity.Standing;
 import com.sportify.entity.Statistic;
@@ -26,6 +28,10 @@ import com.sportify.utility.BadgeUtil;
 import com.sportify.utility.CustomGridBag;
 import com.sportify.utility.HibernateUtil;
 
+/**
+ * @author Crispin A.
+ *
+ */
 @SuppressWarnings("serial")
 public class TeamSelectPanel extends CustomGridBag {
 
@@ -35,32 +41,27 @@ public class TeamSelectPanel extends CustomGridBag {
 
 	private FixturePanel fixturePanel;
 	private StatisticPanel statisticPanel;
+	private final int TEAM_FIXTURE_COUNT = 4;
 
+	/**
+	 * 
+	 * Sets the home team badge, last 4 <code>FixturePanel</code> for and <code>StatisticPanel</code> for
+	 * home team.
+	 * 
+	 */
 	private ItemListener homeTeamItemListener = new ItemListener() {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			String team;
+			String name;
 			if (e.getStateChange() == 1) {
-				team = (String) e.getItem();
-				if (team != "") {
-					setHomeBadge(team);
-					String query = "from Team t where t.name='" + team + "'";
-					Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
-
-					Fixture[] fixtures = new Fixture[4];
-					team = teamObj.getAlias();
-					query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
-							+ "' order by s.id desc";
-					@SuppressWarnings("unchecked")
-					List<Statistic> statistics = (ArrayList<Statistic>) HibernateUtil.executeListQuery(query, 4);
-					for (int i = 0; i < statistics.size(); i++)
-						fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
-								statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
-					fixturePanel.setHomeFixtures(fixtures);
-
-					query = "from Standing s where s.name='" + team + "'";
-					Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
-					statisticPanel.setHomeFixtures(standing);
+				name = (String) e.getItem();
+				if (name != "") {
+					setHomeBadge(name);
+					String query = "from Team t where t.name='" + name + "'";
+					Team teamObj = (Team) HibernateUtil.getSingleResult(query);
+					String alias = teamObj.getAlias();
+					setHomeFixtures(alias);
+					setHomeStatistics(alias);
 				}
 			} else {
 				statisticPanel.clearHomeStatistics();
@@ -69,31 +70,25 @@ public class TeamSelectPanel extends CustomGridBag {
 		}
 	};
 
+	/**
+	 * 
+	 * Sets the away team badge, last 4 <code>FixturePanel</code> for and <code>StatisticPanel</code> for
+	 * away team.
+	 * 
+	 */
 	private ItemListener awayTeamItemListener = new ItemListener() {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			String team;
+			String name;
 			if (e.getStateChange() == 1) {
-				team = (String) e.getItem();
-				if (team != "") {
-					setAwayBadge(team);
-					String query = "from Team t where t.name='" + team + "'";
-					Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
-
-					Fixture[] fixtures = new Fixture[4];
-					team = teamObj.getAlias();
-					query = "from Statistic s where s.HomeTeam='" + team + "' or s.AwayTeam='" + team
-							+ "' order by s.id desc";
-					@SuppressWarnings("unchecked")
-					List<Statistic> statistics = (ArrayList<Statistic>) HibernateUtil.executeListQuery(query, 4);
-					for (int i = 0; i < statistics.size(); i++)
-						fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
-								statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
-					fixturePanel.setAwayFixtures(fixtures);
-
-					query = "from Standing s where s.name='" + team + "'";
-					Standing standing = (Standing) HibernateUtil.executeSingleResultQuery(query);
-					statisticPanel.setAwayFixtures(standing);
+				name = (String) e.getItem();
+				if (name != "") {
+					setAwayBadge(name);
+					String query = "from Team t where t.name='" + name + "'";
+					Team teamObj = (Team) HibernateUtil.getSingleResult(query);
+					String alias = teamObj.getAlias();
+					setAwayFixtures(alias);
+					setAwayStatistics(alias);
 				} else {
 					statisticPanel.clearAwayStatistics();
 					fixturePanel.clearAwayFixtures();
@@ -143,9 +138,16 @@ public class TeamSelectPanel extends CustomGridBag {
 		this.fixturePanel = fixturePanel;
 	}
 
+	/**
+	 * 
+	 * Method for updating the <code>ComboBox</code> for home and away teams when
+	 * the league changes.
+	 * 
+	 * @param league
+	 */
 	public void setTeams(String league) {
 		String query = "from League l where l.name='" + league + "'";
-		League leagueObj = (League) HibernateUtil.executeSingleResultQuery(query);
+		League leagueObj = (League) HibernateUtil.getSingleResult(query);
 		Set<Team> teamSet = leagueObj.getTeams();
 		Team[] teamArray = teamSet.toArray(new Team[teamSet.size()]);
 		String[] list = new String[teamArray.length + 1];
@@ -157,23 +159,116 @@ public class TeamSelectPanel extends CustomGridBag {
 		awayDropdown.setModel(new DefaultComboBoxModel<String>(list));
 	}
 
-	public void setHomeBadge(String team) {
-		String query = "from Team t where t.name='" + team + "'";
-		Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
-		String path = "src/main/resources/img/badge/" + teamObj.getAlias() + ".png";
-		homeLogo.setIcon(BadgeUtil.getBadge(path, 70));
+	/**
+	 * 
+	 * Updates the home team badge.
+	 * 
+	 * @param team
+	 */
+	private void setHomeBadge(String team) {
+		String path = "src/main/resources/img/badge/" + team + ".png";
+		homeLogo.setIcon(BadgeUtil.getBadge(path, 0.46));
 	}
 
-	public void setAwayBadge(String team) {
-		String query = "from Team t where t.name='" + team + "'";
-		Team teamObj = (Team) HibernateUtil.executeSingleResultQuery(query);
-		String path = "src/main/resources/img/badge/" + teamObj.getAlias() + ".png";
-		awayLogo.setIcon(BadgeUtil.getBadge(path, 70));
+	/**
+	 * 
+	 * Updates the away team badge.
+	 * 
+	 * @param team
+	 */
+	private void setAwayBadge(String team) {
+		String path = "src/main/resources/img/badge/" + team + ".png";
+		awayLogo.setIcon(BadgeUtil.getBadge(path, 0.46));
 	}
 
+	/**
+	 * 
+	 * Method to clear both badges when a new league is selected.
+	 * 
+	 */
 	public void clearBadges() {
 		homeLogo.setIcon(null);
 		awayLogo.setIcon(null);
+	}
+
+	/**
+	 * 
+	 * Populates the home/top side of the <code>FixturePanel</code> with the last 4 fixtures of
+	 * the home team.
+	 * 
+	 * @param alias
+	 */
+	private void setHomeFixtures(String alias) {
+		Fixture[] fixtures = new Fixture[TEAM_FIXTURE_COUNT];
+		String hql = "from Statistic s where s.HomeTeam= :alias or s.AwayTeam= :alias order by s.id desc";
+		Session session = HibernateUtil.openSession();
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Statistic> statistics = (ArrayList<Statistic>) session.createQuery(hql).setParameter("alias", alias)
+				.setMaxResults(TEAM_FIXTURE_COUNT).list();
+		session.getTransaction().commit();
+		session.close();
+		for (int i = 0; i < statistics.size(); i++)
+			fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
+					statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
+		fixturePanel.setHomeFixtures(fixtures);
+	}
+
+	/**
+	 * 
+	 * Populates the home/right side of the <code>StatisticPanel</code> with the statistics of
+	 * the home team.
+	 * 
+	 * @param alias
+	 */
+	private void setHomeStatistics(String alias) {
+		String hql = "from Standing s where s.name= :alias ";
+		Session session = HibernateUtil.openSession();
+		session.beginTransaction();
+		Standing standing = (Standing) session.createQuery(hql).setParameter("alias", alias).getSingleResult();
+		session.getTransaction().commit();
+		session.close();
+		statisticPanel.setHomeFixtures(standing);
+	}
+
+	/**
+	 * 
+	 * Populates the away/bottom side of the <code>FixturePanel</code> with the last 4 fixtures
+	 * of the away team.
+	 * 
+	 * @param alias
+	 */
+	private void setAwayFixtures(String alias) {
+		Fixture[] fixtures = new Fixture[TEAM_FIXTURE_COUNT];
+		String hql = "from Statistic s where s.HomeTeam= :alias or s.AwayTeam= :alias order by s.id desc";
+		Session session = HibernateUtil.openSession();
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Statistic> statistics = (ArrayList<Statistic>) session.createQuery(hql).setParameter("alias", alias)
+				.setMaxResults(TEAM_FIXTURE_COUNT).list();
+		session.getTransaction().commit();
+		session.close();
+		for (int i = 0; i < statistics.size(); i++)
+			fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
+					statistics.get(i).getFTHG(), statistics.get(i).getFTAG(), statistics.get(i).getFTR());
+		fixturePanel.setAwayFixtures(fixtures);
+	}
+
+	/**
+	 * 
+	 * Populates the away/right side of the <code>StatisticPanel</code> with the statistics of
+	 * the away team.
+	 * 
+	 * @param alias
+	 */
+	private void setAwayStatistics(String alias) {
+		String hql = "from Standing s where s.name= :alias ";
+		Session session = HibernateUtil.openSession();
+		session.beginTransaction();
+		Standing standing = (Standing) session.createQuery(hql).setParameter("alias", alias).getSingleResult();
+		session.getTransaction().commit();
+		session.close();
+		statisticPanel.setAwayFixtures(standing);
 	}
 
 }
