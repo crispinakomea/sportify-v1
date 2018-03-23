@@ -1,5 +1,9 @@
 package com.sportify.model;
 
+/**
+ * @author Crispin A.
+ *
+ */
 public class Fixture {
 
 	private String HomeTeam;

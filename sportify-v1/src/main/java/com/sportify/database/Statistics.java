@@ -36,6 +36,14 @@ public class Statistics {
 		return singleInstance;
 	}
 
+	/**
+	 * 
+	 * Updates the statistics in the database of the league passed as argument.
+	 * 
+	 * @param league
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	public void update(Object league) throws MalformedURLException, IOException {
 		String division = ((League) league).getDivision();
 		String url = "http://www.football-data.co.uk/mmz4281/1718/" + division + ".csv";
@@ -46,9 +54,9 @@ public class Statistics {
 			String[] nextLine;
 			reader.readNext();
 			while ((nextLine = reader.readNext()) != null) {
-				if(!nextLine[4].equals("") || !nextLine[5].equals("") || !nextLine[6].equals("")) {
+				if (!nextLine[4].equals("") || !nextLine[5].equals("") || !nextLine[6].equals("")) {
 					statistic = makeStatistic(nextLine, ((League) league));
-					HibernateUtil.saveObject(statistic);
+					HibernateUtil.save(statistic);
 				}
 			}
 		}

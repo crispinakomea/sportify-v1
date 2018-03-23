@@ -17,7 +17,7 @@ public class Standing {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
 	private int P;
 	private int W;
@@ -31,8 +31,7 @@ public class Standing {
 
 	}
 
-	public Standing(int id, String name, int p, int w, int d, int l, int gF, int gA, int gD) {
-		this.id = id;
+	public Standing(String name, int p, int w, int d, int l, int gF, int gA, int gD) {
 		this.name = name;
 		P = p;
 		W = w;
@@ -46,7 +45,7 @@ public class Standing {
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}

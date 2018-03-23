@@ -9,6 +9,10 @@ import javax.swing.border.EmptyBorder;
 import com.sportify.view.component.LeagueSelectPanel;
 import com.sportify.view.component.LogoPanel;
 
+/**
+ * @author Crispin A.
+ *
+ */
 @SuppressWarnings("serial")
 public class LeftPanel extends JPanel {
 

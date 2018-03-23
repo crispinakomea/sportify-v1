@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import com.sportify.database.DataUpdateTask;
 import com.sportify.view.component.UpdateDialogPanel;
 
+/**
+ * @author Crispin A.
+ *
+ */
 @SuppressWarnings("serial")
 public class BottomPanel extends JPanel {
 
@@ -22,6 +26,11 @@ public class BottomPanel extends JPanel {
 	private UpdateDialogPanel updateDialogPanel;
 	private DataUpdateTask<Object> dataUpdateTask;
 
+	/**
+	 * 
+	 * ActionListener that starts the update process.
+	 * 
+	 */
 	private ActionListener updateActionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent event) {

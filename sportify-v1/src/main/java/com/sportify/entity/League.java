@@ -23,7 +23,7 @@ public class League {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String division;
 	private String name;
 	private Date season_start;
@@ -38,9 +38,8 @@ public class League {
 
 	}
 
-	public League(int id, String division, String name, Date season_start, Date season_end, Set<Team> teams,
+	public League(String division, String name, Date season_start, Date season_end, Set<Team> teams,
 			Set<Statistic> statistics) {
-		this.id = id;
 		this.division = division;
 		this.name = name;
 		this.season_start = season_start;
@@ -52,7 +51,7 @@ public class League {
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}

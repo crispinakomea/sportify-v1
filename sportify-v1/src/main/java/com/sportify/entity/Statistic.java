@@ -23,7 +23,7 @@ public class Statistic {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private League league;
-	
+
 	private String Date;
 	private String HomeTeam;
 	private String AwayTeam;
@@ -39,9 +39,8 @@ public class Statistic {
 
 	}
 
-	public Statistic(int id, League league, String date, String homeTeam, String awayTeam, int fTHG, int fTAG, char fTR,
+	public Statistic(League league, String date, String homeTeam, String awayTeam, int fTHG, int fTAG, char fTR,
 			int hTHG, int hTAG, char hTR, String referee) {
-		this.id = id;
 		this.league = league;
 		Date = date;
 		HomeTeam = homeTeam;
@@ -58,7 +57,7 @@ public class Statistic {
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
