@@ -3,9 +3,11 @@ package com.sportify;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
 
 import javax.swing.JFrame;
 
+import com.sportify.utility.HibernateUtil;
 import com.sportify.view.BottomPanel;
 import com.sportify.view.LeftPanel;
 import com.sportify.view.RightPanel;
@@ -21,6 +23,19 @@ public class App {
 	private LeftPanel leftPanel;
 	private RightPanel rightPanel;
 	private BottomPanel bottomPanel;
+
+	/**
+	 * 
+	 * Closes SessionFactory application window closing.
+	 * 
+	 */
+	private WindowAdapter closeWindowEvent = new WindowAdapter() {
+		@Override
+		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			HibernateUtil.closeSessionFactory();
+			System.exit(0);
+		}
+	};
 
 	public App() {
 		leftPanel = new LeftPanel();
@@ -39,7 +54,8 @@ public class App {
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("Sportify");
 		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(closeWindowEvent);
 	}
 
 	private void addTo() {
