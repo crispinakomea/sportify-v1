@@ -12,6 +12,10 @@ import com.sportify.view.component.FixturePanel;
 import com.sportify.view.component.StatisticPanel;
 import com.sportify.view.component.TeamSelectPanel;
 
+/**
+ * @author Crispin A.
+ *
+ */
 @SuppressWarnings("serial")
 public class RightPanel extends JPanel {
 
@@ -35,7 +39,7 @@ public class RightPanel extends JPanel {
 		initialize();
 		addTo();
 	}
-	
+
 	private void initialzeRightPanel() {
 		rightPanel = new JPanel();
 		rightPanel.setPreferredSize(new Dimension(210, getPreferredSize().height));
@@ -69,20 +73,19 @@ public class RightPanel extends JPanel {
 		add(new JScrollPane(textArea), BorderLayout.SOUTH);
 	}
 
-	public TeamSelectPanel getTeamSelectPanel() {
-		return teamSelectPanel;
-	}
-
-	public StatisticPanel getStatisticPanel() {
-		return statisticPanel;
-	}
-
-	public FixturePanel getFixturePanel() {
-		return fixturePanel;
-	}
-
-	public JTextArea getTextArea() {
-		return textArea;
+	/**
+	 * 
+	 * Method that updates the team <code>Comboboxes</code> depending on the league
+	 * passed as an arguments, clears the home and away team badges, clears the
+	 * statisticsPanel and clears the fixturePanel.
+	 * 
+	 * @param league
+	 */
+	public void update(String league) {
+		teamSelectPanel.setTeams(league);
+		teamSelectPanel.clearBadges();
+		statisticPanel.clearStatistics();
+		fixturePanel.clearFixtures();
 	}
 
 }

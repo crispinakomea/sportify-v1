@@ -14,6 +14,10 @@ import com.sportify.utility.CustomJList;
 import com.sportify.utility.HibernateUtil;
 import com.sportify.view.RightPanel;
 
+/**
+ * @author Crispin A.
+ *
+ */
 @SuppressWarnings("serial")
 public class LeagueSelectPanel extends JPanel {
 
@@ -22,24 +26,31 @@ public class LeagueSelectPanel extends JPanel {
 
 	private RightPanel rightPanel;
 
+	/**
+	 * 
+	 * Updates the rightPanel when the league selection changes.
+	 * 
+	 */
 	private ListSelectionListener leagueListSelectionListener = new ListSelectionListener() {
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
 			String league;
 			if (!e.getValueIsAdjusting()) {
 				league = leageList.getSelectedValue();
-				rightPanel.getTeamSelectPanel().setTeams(league);
-				rightPanel.getTeamSelectPanel().clearBadges();
-				rightPanel.getStatisticPanel().cleaStatistics();
-				rightPanel.getFixturePanel().clearFixtures();
+				rightPanel.update(league);
 			}
 		}
 	};
 
+	/**
+	 * 
+	 * On instantiation, leageList populated with names of leagues
+	 * 
+	 */
 	public LeagueSelectPanel() {
 		String query = "select league.name from League league";
 		@SuppressWarnings("unchecked")
-		List<String> leagues = (ArrayList<String>) HibernateUtil.executeListQuery(query);
+		List<String> leagues = (ArrayList<String>) HibernateUtil.getListResult(query);
 		String[] list = leagues.toArray(new String[leagues.size()]);
 		leageList = new CustomJList(list);
 		leageList.addListSelectionListener(leagueListSelectionListener);
@@ -62,10 +73,6 @@ public class LeagueSelectPanel extends JPanel {
 
 	public void injectRightPanel(RightPanel rightPanel) {
 		this.rightPanel = rightPanel;
-	}
-
-	public CustomJList getLeageList() {
-		return leageList;
 	}
 
 }
