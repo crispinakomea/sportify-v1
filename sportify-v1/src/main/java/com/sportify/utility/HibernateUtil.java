@@ -20,7 +20,7 @@ public class HibernateUtil {
 		try {
 			sessionFactory = new Configuration().configure().buildSessionFactory();
 		} catch (Throwable e) {
-			logger.error("Initial SessionFactory creation failed. (" + e + ")");
+			logger.error("SessionFactory creation failed. (" + e + ")");
 			throw new ExceptionInInitializerError(e);
 		}
 	}
@@ -29,12 +29,20 @@ public class HibernateUtil {
 		return sessionFactory;
 	}
 
-	public static Object executeSingleResultQuery(String query) {
+	public static void closeSessionFactory() {
+		sessionFactory.close();
+	}
+	
+	public static Session openSession() {
+		return sessionFactory.openSession();
+	}
+
+	public static Object getSingleResult(String sql) {
 		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session = openSession();
 			session.beginTransaction();
-			return session.createQuery(query).getSingleResult();
+			return session.createQuery(sql).getSingleResult();
 		} catch (HibernateException e) {
 			logger.error("Error during execution of execute query. (" + e + ")");
 			session.getTransaction().rollback();
@@ -45,12 +53,12 @@ public class HibernateUtil {
 		return null;
 	}
 
-	public static Object executeListQuery(String query) {
+	public static Object getListResult(String sql) {
 		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session = openSession();
 			session.beginTransaction();
-			return session.createQuery(query).list();
+			return session.createQuery(sql).list();
 		} catch (HibernateException e) {
 			logger.error("Error during execution of execute query. (" + e + ")");
 			session.getTransaction().rollback();
@@ -61,12 +69,12 @@ public class HibernateUtil {
 		return null;
 	}
 
-	public static Object executeListQuery(String query, int limit) {
+	public static Object getListResult(String sql, int limit) {
 		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session = openSession();
 			session.beginTransaction();
-			return session.createQuery(query).setMaxResults(limit).list();
+			return session.createQuery(sql).setMaxResults(limit).list();
 		} catch (HibernateException e) {
 			logger.error("Error during execution of execute query. (" + e + ")");
 			session.getTransaction().rollback();
@@ -77,12 +85,12 @@ public class HibernateUtil {
 		return null;
 	}
 
-	public static void executeUpdate(String query) {
+	public static void executeUpdate(String sql) {
 		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session = openSession();
 			session.beginTransaction();
-			session.createQuery(query).executeUpdate();
+			session.createQuery(sql).executeUpdate();
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			logger.error("Error during execution of update query. (" + e + ")");
@@ -92,10 +100,10 @@ public class HibernateUtil {
 		}
 	}
 
-	public static void saveObject(Object object) {
+	public static void save(Object object) {
 		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session = openSession();
 			session.beginTransaction();
 			session.save(object);
 			session.getTransaction().commit();
@@ -106,10 +114,21 @@ public class HibernateUtil {
 			session.close();
 		}
 	}
-	
-	public static void shutdown() {
-		sessionFactory.getCurrentSession().close();
-		sessionFactory.close();
+
+	public static boolean singleResultExists(String query) {
+		Session session = null;
+		try {
+			session = openSession();
+			session.beginTransaction();
+			return (session.createQuery(query).uniqueResult() != null);
+		} catch (HibernateException e) {
+			logger.error("Error during execution of execute query. (" + e + ")");
+			session.getTransaction().rollback();
+		} finally {
+			session.getTransaction().commit();
+			session.close();
+		}
+		return true;
 	}
 
 }
