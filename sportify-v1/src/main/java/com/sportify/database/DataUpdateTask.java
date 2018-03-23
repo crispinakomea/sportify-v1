@@ -31,9 +31,9 @@ public class DataUpdateTask<V> extends SwingWorker<List<Integer>, Integer> {
 		HibernateUtil.executeUpdate("delete from Statistic");
 		HibernateUtil.executeUpdate("delete from Standing");
 		@SuppressWarnings("unchecked")
-		List<League> leagues = (ArrayList<League>) HibernateUtil.executeListQuery("from League");
+		List<League> leagues = (ArrayList<League>) HibernateUtil.getListResult("from League");
 		@SuppressWarnings("unchecked")
-		List<Team> teams = (ArrayList<Team>) HibernateUtil.executeListQuery("from Team");
+		List<Team> teams = (ArrayList<Team>) HibernateUtil.getListResult("from Team");
 		int progress = 0;
 		toBeUpdated = leagues.size() + teams.size();
 		for (League league : leagues) {
