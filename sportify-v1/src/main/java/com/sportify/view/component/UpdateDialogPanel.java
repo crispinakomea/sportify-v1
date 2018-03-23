@@ -7,6 +7,10 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
+/**
+ * @author Crispin A.
+ *
+ */
 @SuppressWarnings("serial")
 public class UpdateDialogPanel extends JDialog {
 
