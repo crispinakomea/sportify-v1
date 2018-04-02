@@ -38,11 +38,11 @@ public class DataUpdateTask<V> extends SwingWorker<List<Integer>, Integer> {
 		toBeUpdated = leagues.size() + teams.size();
 		for (League league : leagues) {
 			Statistics.getInstance().update(league);
-			publish(progress++);
+			publish(++progress);
 			setProgress((int) (progress * 1.0 / toBeUpdated * 100));
 			for (Team team : league.getTeams()) {
 				Standings.getInstance().update(team);
-				publish(progress++);
+				publish(++progress);
 				setProgress((int) (progress * 1.0 / toBeUpdated * 100));
 			}
 		}
