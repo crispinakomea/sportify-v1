@@ -32,7 +32,7 @@ public class HibernateUtil {
 	public static void closeSessionFactory() {
 		sessionFactory.close();
 	}
-	
+
 	public static Session openSession() {
 		return sessionFactory.openSession();
 	}
@@ -41,13 +41,10 @@ public class HibernateUtil {
 		Session session = null;
 		try {
 			session = openSession();
-			session.beginTransaction();
 			return session.createQuery(sql).getSingleResult();
 		} catch (HibernateException e) {
 			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
 		} finally {
-			session.getTransaction().commit();
 			session.close();
 		}
 		return null;
@@ -57,13 +54,10 @@ public class HibernateUtil {
 		Session session = null;
 		try {
 			session = openSession();
-			session.beginTransaction();
 			return session.createQuery(sql).list();
 		} catch (HibernateException e) {
 			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
 		} finally {
-			session.getTransaction().commit();
 			session.close();
 		}
 		return null;
@@ -73,13 +67,10 @@ public class HibernateUtil {
 		Session session = null;
 		try {
 			session = openSession();
-			session.beginTransaction();
 			return session.createQuery(sql).setMaxResults(limit).list();
 		} catch (HibernateException e) {
 			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
 		} finally {
-			session.getTransaction().commit();
 			session.close();
 		}
 		return null;
@@ -119,13 +110,10 @@ public class HibernateUtil {
 		Session session = null;
 		try {
 			session = openSession();
-			session.beginTransaction();
 			return (session.createQuery(query).uniqueResult() != null);
 		} catch (HibernateException e) {
 			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
 		} finally {
-			session.getTransaction().commit();
 			session.close();
 		}
 		return true;
