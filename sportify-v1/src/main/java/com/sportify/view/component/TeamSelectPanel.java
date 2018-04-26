@@ -45,8 +45,8 @@ public class TeamSelectPanel extends CustomGridBag {
 
 	/**
 	 * 
-	 * Sets the home team badge, last 4 <code>FixturePanel</code> for and <code>StatisticPanel</code> for
-	 * home team.
+	 * Sets the home team badge, last 4 <code>FixturePanel</code> for and
+	 * <code>StatisticPanel</code> for home team.
 	 * 
 	 */
 	private ItemListener homeTeamItemListener = new ItemListener() {
@@ -72,8 +72,8 @@ public class TeamSelectPanel extends CustomGridBag {
 
 	/**
 	 * 
-	 * Sets the away team badge, last 4 <code>FixturePanel</code> for and <code>StatisticPanel</code> for
-	 * away team.
+	 * Sets the away team badge, last 4 <code>FixturePanel</code> for and
+	 * <code>StatisticPanel</code> for away team.
 	 * 
 	 */
 	private ItemListener awayTeamItemListener = new ItemListener() {
@@ -193,8 +193,8 @@ public class TeamSelectPanel extends CustomGridBag {
 
 	/**
 	 * 
-	 * Populates the home/top side of the <code>FixturePanel</code> with the last 4 fixtures of
-	 * the home team.
+	 * Populates the home/top side of the <code>FixturePanel</code> with the last 4
+	 * fixtures of the home team.
 	 * 
 	 * @param alias
 	 */
@@ -202,11 +202,9 @@ public class TeamSelectPanel extends CustomGridBag {
 		Fixture[] fixtures = new Fixture[TEAM_FIXTURE_COUNT];
 		String hql = "from Statistic s where s.HomeTeam= :alias or s.AwayTeam= :alias order by s.id desc";
 		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Statistic> statistics = (ArrayList<Statistic>) session.createQuery(hql).setParameter("alias", alias)
 				.setMaxResults(TEAM_FIXTURE_COUNT).list();
-		session.getTransaction().commit();
 		session.close();
 		for (int i = 0; i < statistics.size(); i++)
 			fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
@@ -216,25 +214,23 @@ public class TeamSelectPanel extends CustomGridBag {
 
 	/**
 	 * 
-	 * Populates the home/right side of the <code>StatisticPanel</code> with the statistics of
-	 * the home team.
+	 * Populates the home/right side of the <code>StatisticPanel</code> with the
+	 * statistics of the home team.
 	 * 
 	 * @param alias
 	 */
 	private void setHomeStatistics(String alias) {
 		String hql = "from Standing s where s.name= :alias ";
 		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
 		Standing standing = (Standing) session.createQuery(hql).setParameter("alias", alias).getSingleResult();
-		session.getTransaction().commit();
 		session.close();
 		statisticPanel.setHomeFixtures(standing);
 	}
 
 	/**
 	 * 
-	 * Populates the away/bottom side of the <code>FixturePanel</code> with the last 4 fixtures
-	 * of the away team.
+	 * Populates the away/bottom side of the <code>FixturePanel</code> with the last
+	 * 4 fixtures of the away team.
 	 * 
 	 * @param alias
 	 */
@@ -242,11 +238,9 @@ public class TeamSelectPanel extends CustomGridBag {
 		Fixture[] fixtures = new Fixture[TEAM_FIXTURE_COUNT];
 		String hql = "from Statistic s where s.HomeTeam= :alias or s.AwayTeam= :alias order by s.id desc";
 		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Statistic> statistics = (ArrayList<Statistic>) session.createQuery(hql).setParameter("alias", alias)
 				.setMaxResults(TEAM_FIXTURE_COUNT).list();
-		session.getTransaction().commit();
 		session.close();
 		for (int i = 0; i < statistics.size(); i++)
 			fixtures[i] = new Fixture(statistics.get(i).getHomeTeam(), statistics.get(i).getAwayTeam(),
@@ -256,17 +250,15 @@ public class TeamSelectPanel extends CustomGridBag {
 
 	/**
 	 * 
-	 * Populates the away/right side of the <code>StatisticPanel</code> with the statistics of
-	 * the away team.
+	 * Populates the away/right side of the <code>StatisticPanel</code> with the
+	 * statistics of the away team.
 	 * 
 	 * @param alias
 	 */
 	private void setAwayStatistics(String alias) {
 		String hql = "from Standing s where s.name= :alias ";
 		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
 		Standing standing = (Standing) session.createQuery(hql).setParameter("alias", alias).getSingleResult();
-		session.getTransaction().commit();
 		session.close();
 		statisticPanel.setAwayFixtures(standing);
 	}
