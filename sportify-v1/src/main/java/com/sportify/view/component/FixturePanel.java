@@ -166,17 +166,11 @@ class FixtureBox extends CustomGridBag {
 	public void setFixtureBox(Fixture fixture, double size) {
 		String hql = "from Team t where t.alias = :alias";
 		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
 		Team teamObj = (Team) session.createQuery(hql).setParameter("alias", fixture.getHomeTeam()).getSingleResult();
-		session.getTransaction().commit();
-		session.close();
 		String path = "src/main/resources/img/badge/" + teamObj.getName() + ".png";
 		homeLogo.setIcon(BadgeUtil.getBadge(path, size));
 		score.setText(" " + fixture.getFTHG() + " - " + fixture.getFTAG() + " ");
-		session = HibernateUtil.openSession();
-		session.beginTransaction();
 		teamObj = (Team) session.createQuery(hql).setParameter("alias", fixture.getAwayTeam()).getSingleResult();
-		session.getTransaction().commit();
 		session.close();
 		path = "src/main/resources/img/badge/" + teamObj.getName() + ".png";
 		awayLogo.setIcon(BadgeUtil.getBadge(path, size));

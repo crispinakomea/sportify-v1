@@ -32,57 +32,40 @@ public class HibernateUtil {
 	public static void closeSessionFactory() {
 		sessionFactory.close();
 	}
-	
+
 	public static Session openSession() {
 		return sessionFactory.openSession();
 	}
 
+
 	public static Object getSingleResult(String sql) {
-		Session session = null;
-		try {
-			session = openSession();
-			session.beginTransaction();
-			return session.createQuery(sql).getSingleResult();
-		} catch (HibernateException e) {
-			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
-		} finally {
-			session.getTransaction().commit();
-			session.close();
-		}
-		return null;
+		Session session = openSession();
+		Object object = session.createQuery(sql).getSingleResult();
+		session.close();
+		return object;
 	}
 
 	public static Object getListResult(String sql) {
-		Session session = null;
-		try {
-			session = openSession();
-			session.beginTransaction();
-			return session.createQuery(sql).list();
-		} catch (HibernateException e) {
-			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
-		} finally {
-			session.getTransaction().commit();
-			session.close();
-		}
-		return null;
+		Session session = openSession();
+		Object object = session.createQuery(sql).list();
+		session.close();
+		return object;
 	}
 
 	public static Object getListResult(String sql, int limit) {
-		Session session = null;
-		try {
-			session = openSession();
-			session.beginTransaction();
-			return session.createQuery(sql).setMaxResults(limit).list();
-		} catch (HibernateException e) {
-			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
-		} finally {
-			session.getTransaction().commit();
-			session.close();
-		}
-		return null;
+		Session session = openSession();
+		session.beginTransaction();
+		Object object = session.createQuery(sql).setMaxResults(limit).list();
+		session.close();
+		return object;
+	}
+
+	public static boolean singleResultExists(String query) {
+		Session session = openSession();
+		session.beginTransaction();
+		boolean exists = session.createQuery(query).uniqueResult() != null;
+		session.close();
+		return exists;
 	}
 
 	public static void executeUpdate(String sql) {
@@ -113,22 +96,6 @@ public class HibernateUtil {
 		} finally {
 			session.close();
 		}
-	}
-
-	public static boolean singleResultExists(String query) {
-		Session session = null;
-		try {
-			session = openSession();
-			session.beginTransaction();
-			return (session.createQuery(query).uniqueResult() != null);
-		} catch (HibernateException e) {
-			logger.error("Error during execution of execute query. (" + e + ")");
-			session.getTransaction().rollback();
-		} finally {
-			session.getTransaction().commit();
-			session.close();
-		}
-		return true;
 	}
 
 }

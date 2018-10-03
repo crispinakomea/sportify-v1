@@ -43,11 +43,9 @@ public class Standings {
 		String alias = ((Team) team).getAlias();
 		String hql = "from Statistic s where s.HomeTeam= :alias or s.AwayTeam= :alias";
 		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Statistic> statistics = (ArrayList<Statistic>) session.createQuery(hql).setParameter("alias", alias)
 				.list();
-		session.getTransaction().commit();
 		session.close();
 		int plays, wins, draws, losses, GF, GA;
 		plays = wins = draws = losses = GF = GA = 0;
