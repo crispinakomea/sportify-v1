@@ -1,4 +1,4 @@
-package com.sportify.view;
+package caa.sportify.view;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.sportify.database.DataUpdateTask;
-import com.sportify.view.component.UpdateDialogPanel;
+import caa.sportify.database.DataUpdateTask;
+import caa.sportify.view.component.UpdateDialogPanel;
 
 /**
  * @author Crispin A.

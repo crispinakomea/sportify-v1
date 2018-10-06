@@ -1,4 +1,4 @@
-package com.sportify.entity;
+package caa.sportify.entity;
 
 import java.util.Date;
 import java.util.Set;

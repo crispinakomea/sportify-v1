@@ -1,4 +1,4 @@
-package com.sportify.view.component;
+package caa.sportify.view.component;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.sportify.utility.CustomJList;
-import com.sportify.utility.HibernateUtil;
-import com.sportify.view.RightPanel;
+import caa.sportify.utility.CustomJList;
+import caa.sportify.utility.HibernateUtil;
+import caa.sportify.view.RightPanel;
 
 /**
  * @author Crispin A.

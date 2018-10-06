@@ -1,4 +1,4 @@
-package com.sportify.utility;
+package caa.sportify.utility;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;

@@ -1,4 +1,4 @@
-package com.sportify.utility;
+package caa.sportify.utility;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

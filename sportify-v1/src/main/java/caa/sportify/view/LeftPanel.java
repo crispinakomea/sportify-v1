@@ -1,4 +1,4 @@
-package com.sportify.view;
+package caa.sportify.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -6,8 +6,8 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.sportify.view.component.LeagueSelectPanel;
-import com.sportify.view.component.LogoPanel;
+import caa.sportify.view.component.LeagueSelectPanel;
+import caa.sportify.view.component.LogoPanel;
 
 /**
  * @author Crispin A.

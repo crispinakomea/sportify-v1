@@ -1,4 +1,4 @@
-package com.sportify.view;
+package caa.sportify.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -8,9 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import com.sportify.view.component.FixturePanel;
-import com.sportify.view.component.StatisticPanel;
-import com.sportify.view.component.TeamSelectPanel;
+import caa.sportify.view.component.FixturePanel;
+import caa.sportify.view.component.StatisticPanel;
+import caa.sportify.view.component.TeamSelectPanel;
 
 /**
  * @author Crispin A.

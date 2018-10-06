@@ -1,4 +1,4 @@
-package com.sportify.utility;
+package caa.sportify.utility;
 
 import java.io.File;
 import java.io.IOException;

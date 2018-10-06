@@ -1,4 +1,4 @@
-package com.sportify;
+package caa.sportify;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -7,10 +7,10 @@ import java.awt.event.WindowAdapter;
 
 import javax.swing.JFrame;
 
-import com.sportify.utility.HibernateUtil;
-import com.sportify.view.BottomPanel;
-import com.sportify.view.LeftPanel;
-import com.sportify.view.RightPanel;
+import caa.sportify.utility.HibernateUtil;
+import caa.sportify.view.BottomPanel;
+import caa.sportify.view.LeftPanel;
+import caa.sportify.view.RightPanel;
 
 /**
  * @author Crispin A.

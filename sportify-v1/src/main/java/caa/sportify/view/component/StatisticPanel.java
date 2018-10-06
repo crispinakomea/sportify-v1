@@ -1,4 +1,4 @@
-package com.sportify.view.component;
+package caa.sportify.view.component;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.sportify.entity.Standing;
+import caa.sportify.entity.Standing;
 
 @SuppressWarnings("serial")
 public class StatisticPanel extends JPanel {

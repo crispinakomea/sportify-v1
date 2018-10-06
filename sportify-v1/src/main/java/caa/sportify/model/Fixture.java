@@ -1,4 +1,4 @@
-package com.sportify.model;
+package caa.sportify.model;
 
 /**
  * @author Crispin A.

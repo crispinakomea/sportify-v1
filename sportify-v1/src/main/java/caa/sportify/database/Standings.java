@@ -1,4 +1,4 @@
-package com.sportify.database;
+package caa.sportify.database;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.sportify.entity.Standing;
-import com.sportify.entity.Statistic;
-import com.sportify.entity.Team;
-import com.sportify.utility.HibernateUtil;
+import caa.sportify.entity.Standing;
+import caa.sportify.entity.Statistic;
+import caa.sportify.entity.Team;
+import caa.sportify.utility.HibernateUtil;
 
 public class Standings {
 

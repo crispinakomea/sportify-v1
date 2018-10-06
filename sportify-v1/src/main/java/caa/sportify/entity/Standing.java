@@ -1,4 +1,4 @@
-package com.sportify.entity;
+package caa.sportify.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

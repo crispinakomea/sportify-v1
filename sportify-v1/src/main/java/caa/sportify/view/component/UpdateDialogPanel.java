@@ -1,4 +1,4 @@
-package com.sportify.view.component;
+package caa.sportify.view.component;
 
 import java.awt.Dialog;
 import java.awt.Dimension;

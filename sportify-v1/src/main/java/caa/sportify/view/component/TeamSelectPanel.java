@@ -1,4 +1,4 @@
-package com.sportify.view.component;
+package caa.sportify.view.component;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -19,14 +19,14 @@ import javax.swing.SwingConstants;
 
 import org.hibernate.Session;
 
-import com.sportify.entity.League;
-import com.sportify.entity.Standing;
-import com.sportify.entity.Statistic;
-import com.sportify.entity.Team;
-import com.sportify.model.Fixture;
-import com.sportify.utility.BadgeUtil;
-import com.sportify.utility.CustomGridBag;
-import com.sportify.utility.HibernateUtil;
+import caa.sportify.entity.League;
+import caa.sportify.entity.Standing;
+import caa.sportify.entity.Statistic;
+import caa.sportify.entity.Team;
+import caa.sportify.model.Fixture;
+import caa.sportify.utility.BadgeUtil;
+import caa.sportify.utility.CustomGridBag;
+import caa.sportify.utility.HibernateUtil;
 
 /**
  * @author Crispin A.

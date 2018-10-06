@@ -15,9 +15,9 @@
 		<property name="show_sql">false</property>
 		<property name="hibernate.hbm2ddl.import_files">/data.sql</property>
 		<property name="hibernate.hbm2ddl.import_files_sql_extractor">org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</property>
-		<mapping class="com.sportify.entity.League" />
-		<mapping class="com.sportify.entity.Team" />
-		<mapping class="com.sportify.entity.Statistic" />
-		<mapping class="com.sportify.entity.Standing" />
+		<mapping class="caa.sportify.entity.League" />
+		<mapping class="caa.sportify.entity.Team" />
+		<mapping class="caa.sportify.entity.Statistic" />
+		<mapping class="caa.sportify.entity.Standing" />
 	</session-factory>
 </hibernate-configuration>

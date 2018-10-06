@@ -1,4 +1,4 @@
-package com.sportify.database;
+package caa.sportify.database;
 
 import java.io.File;
 import java.io.FileReader;
@@ -8,10 +8,11 @@ import java.net.MalformedURLException;
 import org.apache.commons.io.FileUtils;
 
 import com.opencsv.CSVReader;
-import com.sportify.entity.League;
-import com.sportify.entity.Statistic;
-import com.sportify.utility.HibernateUtil;
-import com.sportify.utility.HttpUtil;
+
+import caa.sportify.entity.League;
+import caa.sportify.entity.Statistic;
+import caa.sportify.utility.HibernateUtil;
+import caa.sportify.utility.HttpUtil;
 
 /**
  * @author Crispin A.

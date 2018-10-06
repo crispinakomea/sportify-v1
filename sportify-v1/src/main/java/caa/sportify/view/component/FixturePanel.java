@@ -1,4 +1,4 @@
-package com.sportify.view.component;
+package caa.sportify.view.component;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,11 +17,11 @@ import javax.swing.border.TitledBorder;
 
 import org.hibernate.Session;
 
-import com.sportify.entity.Team;
-import com.sportify.model.Fixture;
-import com.sportify.utility.BadgeUtil;
-import com.sportify.utility.CustomGridBag;
-import com.sportify.utility.HibernateUtil;
+import caa.sportify.entity.Team;
+import caa.sportify.model.Fixture;
+import caa.sportify.utility.BadgeUtil;
+import caa.sportify.utility.CustomGridBag;
+import caa.sportify.utility.HibernateUtil;
 
 /**
  * @author Crispin A.

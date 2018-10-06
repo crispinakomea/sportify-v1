@@ -1,4 +1,4 @@
-package com.sportify.database;
+package caa.sportify.database;
 
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -9,10 +9,10 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
 
-import com.sportify.entity.League;
-import com.sportify.entity.Team;
-import com.sportify.utility.HibernateUtil;
-import com.sportify.view.component.UpdateDialogPanel;
+import caa.sportify.entity.League;
+import caa.sportify.entity.Team;
+import caa.sportify.utility.HibernateUtil;
+import caa.sportify.view.component.UpdateDialogPanel;
 
 public class DataUpdateTask<V> extends SwingWorker<List<Integer>, Integer> {
 
